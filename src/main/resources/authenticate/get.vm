@@ -1,0 +1,87 @@
+#*
+*  Copyright 2021 Curity AB
+*
+*  Licensed under the Apache License, Version 2.0 (the "License");
+*  you may not use this file except in compliance with the License.
+*  You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+*  Unless required by applicable law or agreed to in writing, software
+*  distributed under the License is distributed on an "AS IS" BASIS,
+*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*  See the License for the specific language governing permissions and
+*  limitations under the License.
+*#
+
+#define ($_body)
+    <head>
+        <script $nonceAttr type="text/javascript" src="https://cloud.behaviosec.com/collector/collector.js"></script>
+        <script $nonceAttr type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    </head>
+
+<h2><img src="/behaviosec-logo.png" alt="Behaviosec logo" width="50%" height="50%"></h2>
+
+<form method="post" action="$_authUrl">
+
+    #if ($_errors)
+        #set($_errorClass = "is-error is-error-danger")
+    #end
+    <div id="transfer-container">
+
+        <label for="userName" class="$!_errorClass">#message("authenticator.behaviosec-authenticator.authenticate.view.username")</label>
+        <input type="text" id="userName" name="userName" class="block full-width mb1 field-light $!_errorClass" autocapitalize="none"
+               value="$!userNameValue">
+
+        <label>#message("authenticator.behaviosec-authenticator.authenticate.view.password")</label>
+
+        <input type="password" name="password" class="block full-width mb1 field-light">
+
+
+        <script $nonceAttr>
+            // Generate journeyId and set in hidden filed to pass to backend
+            let journeyId = Math.floor((Math.random() * 1000000))+"-"+new Date().getTime();
+
+            var input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", "journeyId");
+            input.setAttribute("value", journeyId);
+
+            document.getElementById("transfer-container").appendChild(input);
+        </script>
+
+        <button id="sendBtn" class="button button-fullwidth button-primary">#message(
+            "authenticator.behaviosec-authenticator.authenticate.view.authenticate")</button>
+    </div>
+
+    ##Get the API Key from config
+    #set($api_key = $_context.API_KEY)
+
+    <script $nonceAttr>
+        $(function() {
+            window.bw.startMonitor({
+                container: document.querySelector("#transfer-container")
+            });
+            $.ajaxSetup({
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'API-Key': '$api_key'
+                }
+            });
+
+            let doLogin = () => {
+                let timing = bw.getData(true);
+
+                $.post( "https://cloud.behaviosec.com/api/v1/journey", JSON.stringify({ journeyId ,timing }));
+            }
+
+            $('#form').bind('submit', (e) => {e.preventDefault();})
+            $('#sendBtn').bind('click',doLogin)
+        })
+    </script>
+</form>
+
+#end
+
+#parse("layouts/default")
