@@ -29,11 +29,11 @@
     #end
     <div id="transfer-container">
 
-        <label for="userName" class="$!_errorClass">#message("authenticator.behaviosec-authenticator.authenticate.view.username")</label>
+        <label for="userName" class="$!_errorClass">#message("authenticator.behaviosec.authenticate.view.username")</label>
         <input type="text" id="userName" name="userName" class="block full-width mb1 field-light $!_errorClass" autocapitalize="none"
                value="$!userNameValue">
 
-        <label>#message("authenticator.behaviosec-authenticator.authenticate.view.password")</label>
+        <label>#message("authenticator.behaviosec.authenticate.view.password")</label>
 
         <input type="password" name="password" class="block full-width mb1 field-light">
 
@@ -51,7 +51,7 @@
         </script>
 
         <button id="sendBtn" class="button button-fullwidth button-primary">#message(
-            "authenticator.behaviosec-authenticator.authenticate.view.authenticate")</button>
+            "authenticator.behaviosec.authenticate.view.authenticate")</button>
     </div>
 
     ##Get the API Key from config
