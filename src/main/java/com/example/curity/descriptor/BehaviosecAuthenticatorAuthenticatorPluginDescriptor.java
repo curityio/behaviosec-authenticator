@@ -30,7 +30,7 @@ public final class BehaviosecAuthenticatorAuthenticatorPluginDescriptor implemen
     @Override
     public String getPluginImplementationType()
     {
-        return "BehavioSec";
+        return "behaviosec";
     }
 
     @Override
