@@ -26,6 +26,36 @@ You can build the plugin by issuing the command mvn package. This will produce a
 
 To install the plugin, copy the compiled JAR (and all of its dependencies) into the :file:`${IDSVR_HOME}/usr/share/plugins/${pluginGroup}` on each node, including the admin node. For more information about installing plugins, refer to the [curity.io/plugins](https://support.curity.io/docs/latest/developer-guide/plugins/index.html#plugin-installation).
 
+The plugin uses templates and localized messages for the front-end part of the authenticator. Deploy the template and messages by copying the following files:
+
+* templates from the `resources/templates` directory to :file:`${IDSVR_HOME}/usr/share/templates/overrides/`
+* messages from the `resources/messages` directory to :file:`${IDSVR_HOME}/usr/share/messages/overrides/`
+
+Note that the path will depend on the name of the Authenticator configured in the Curity Identity Server. The example path in this folder structure assumes the name of the Authenticator is `behaviosec`.
+
+### Update csp.vm
+In order to allow the BehavioSec JS SDK to execute, `csp.vm` needs to be updated. The change needed is defined in `get.vm` but `scp.vm` needs to be updated to read that variable. Locate `csp.vm` in `idsvr/usr/share/templates/core/fragments/` and make the changes.
+
+Add the following if/else statement after the ones that are already defined.
+
+```js
+#if(${_cspConnectSrc})
+    #set ($connectSrc = ${_cspConnectSrc})
+#else
+    #set ($connectSrc = "connect-src 'self';")
+#end
+```
+
+Then replace this row:
+```js
+<meta http-equiv="Content-Security-Policy" content="connect-src 'self'; font-src 'self'; $childSrc">
+```
+
+with this:
+```js
+<meta http-equiv="Content-Security-Policy" content="$!connectSrc font-src 'self';">
+```
+
 ## Required Dependencies
 
 For a list of the dependencies and their versions, run ``mvn dependency:list``. Ensure that all of these are installed in the plugin group; otherwise, they will not be accessible to this plug-in and run-time errors will result.
