@@ -97,10 +97,10 @@ public final class BehaviosecAuthenticatorAuthenticatorRequestHandler implements
                 model.getPassword(),
                 CredentialManager.NO_CONTEXT);
 
-        SessionDataResponse sessionData = getBehavioCloudSession(model.getJourneyId(), model.getUserName());
-
         if (attributes != null)
         {
+            SessionDataResponse sessionData = getBehavioCloudSession(model.getJourneyId(), model.getUserName());
+
             Attribute scoreResult = Attribute.of(AttributeName.of("scoreResult"), AttributeValue.of(sessionData.getScoreResult()));
             Attribute risk = Attribute.of(AttributeName.of("risk"), AttributeValue.of( sessionData.getRisk().doubleValue()));
             Attribute isTrained = Attribute.of(AttributeName.of("isTrained"), AttributeValue.of( sessionData.isTrained()));
