@@ -14,6 +14,8 @@
 *  limitations under the License.
 *#
 
+#set($_cspConnectSrc = "connect-src https://cloud.behaviosec.com/api/v1/journey;")
+
 #define ($_body)
     <head>
         <script $nonceAttr type="text/javascript" src="https://cloud.behaviosec.com/collector/collector.js"></script>
