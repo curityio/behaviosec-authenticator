@@ -17,7 +17,6 @@ package com.example.curity.authentication;
 
 import com.behaviosec.cloud.BehavioCloudApi;
 import com.behaviosec.cloud.BehavioCloudProperties;
-import com.behaviosec.cloud.ScoreResult;
 import com.behaviosec.cloud.SessionDataResponse;
 import com.behaviosec.cloud.exceptions.BehavioCloudException;
 import com.example.curity.config.BehaviosecAuthenticatorAuthenticatorPluginConfig;
@@ -39,7 +38,6 @@ import se.curity.identityserver.sdk.web.Request;
 import se.curity.identityserver.sdk.web.Response;
 import se.curity.identityserver.sdk.web.alerts.ErrorMessage;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -102,8 +100,8 @@ public final class BehaviosecAuthenticatorAuthenticatorRequestHandler implements
             SessionDataResponse sessionData = getBehavioCloudSession(model.getJourneyId(), model.getUserName());
 
             Attribute scoreResult = Attribute.of(AttributeName.of("scoreResult"), AttributeValue.of(sessionData.getScoreResult()));
-            Attribute risk = Attribute.of(AttributeName.of("risk"), AttributeValue.of( sessionData.getRisk().doubleValue()));
-            Attribute isTrained = Attribute.of(AttributeName.of("isTrained"), AttributeValue.of( sessionData.isTrained()));
+            Attribute risk = Attribute.of(AttributeName.of("risk"), AttributeValue.of(sessionData.getRisk().doubleValue()));
+            Attribute isTrained = Attribute.of(AttributeName.of("isTrained"), AttributeValue.of(sessionData.isTrained()));
 
             result = Optional.of(new AuthenticationResult(attributes
                     .withContextAttribute(scoreResult)

@@ -17,14 +17,12 @@
 #set($_cspConnectSrc = "connect-src https://cloud.behaviosec.com/api/v1/journey;")
 
 #define ($_body)
-    <head>
-        <script $nonceAttr type="text/javascript" src="https://cloud.behaviosec.com/collector/collector.js"></script>
-        <script $nonceAttr type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-    </head>
 
-<h2><img src="/behaviosec-logo.png" alt="Behaviosec logo" width="50%" height="50%"></h2>
+<h2><img src="/behaviosec-logo.png" alt="Behaviosec logo" width="50%"></h2>
 
 <form method="post" action="$_authUrl">
+    <script $nonceAttr type="text/javascript" src="https://cloud.behaviosec.com/collector/collector.js"></script>
+    <script $nonceAttr type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 
     #if ($_errors)
         #set($_errorClass = "is-error is-error-danger")
@@ -74,7 +72,6 @@
 
             let doLogin = () => {
                 let timing = bw.getData(true);
-
                 $.post( "https://cloud.behaviosec.com/api/v1/journey", JSON.stringify({ journeyId ,timing }));
             }
 
