@@ -20,7 +20,7 @@ The overall result of leveraging behavioral data during the authentication will 
 
 ## Building the Plugin
 
-You can build the plugin by issuing the command mvn package. This will produce a JAR file along with the needed dependencies in the target directory, which can be installed.
+You can build the plugin by issuing the command `mvn package`. This will produce a JAR file along with the needed dependencies in the `target` directory, which can be installed.
 
 ## Installing the Plugin
 
