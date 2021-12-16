@@ -54,7 +54,8 @@ public final class BehaviosecAuthenticatorAuthenticatorRequestHandler implements
     private final ExceptionFactory _exceptionFactory;
     private final UserPreferenceManager _userPreferenceManager;
     private final CredentialManager _credentialManager;
-    public final String SESSION_ID_PREFIX;
+    private final String SESSION_ID_PREFIX;
+    private static String _journeyId = UUID.randomUUID().toString();
 
     /**
      * Tiny container for template variable keys.
@@ -97,7 +98,7 @@ public final class BehaviosecAuthenticatorAuthenticatorRequestHandler implements
 
         if (attributes != null)
         {
-            SessionDataResponse sessionData = getBehavioCloudSession(model.getJourneyId(), model.getUserName());
+            SessionDataResponse sessionData = getBehavioCloudSession(_journeyId, model.getUserName());
 
             Attribute scoreResult = Attribute.of(AttributeName.of("scoreResult"), AttributeValue.of(sessionData.getScoreResult()));
             Attribute risk = Attribute.of(AttributeName.of("risk"), AttributeValue.of(sessionData.getRisk().doubleValue()));
@@ -137,6 +138,9 @@ public final class BehaviosecAuthenticatorAuthenticatorRequestHandler implements
         //Make the api-key available in the frontend
         response.putViewData("API_KEY", _config.getApiKey(), Response.ResponseModelScope.ANY);
 
+        //Make the journeyId available in the frontend
+        response.putViewData("JOURNEYID", _journeyId, Response.ResponseModelScope.ANY);
+
         return new RequestModel(request);
     }
 
@@ -170,7 +174,8 @@ public final class BehaviosecAuthenticatorAuthenticatorRequestHandler implements
 
     //This is example of session id generator for demo purposes only.
     //Not recommended for production.
-    private SessionData createSession() {
+    private SessionData createSession()
+    {
         return new SessionData(SESSION_ID_PREFIX + UUID.randomUUID());
     }
 }
