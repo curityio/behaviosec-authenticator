@@ -56,13 +56,10 @@ public final class RequestModel
 		@NotBlank(message = "validation.error.password.required")
 		private final String _password;
 
-		private final String _journeyId;
-
 		Post(Request request)
 		{
 			_userName = request.getFormParameterValueOrError(USERNAME_PARAM);
 			_password = request.getFormParameterValueOrError(PASSWORD_PARAM);
-			_journeyId = request.getFormParameterValueOrError(JOURNEYID_PARAM);
 		}
 
 		String getUserName()
@@ -75,12 +72,6 @@ public final class RequestModel
 		{
 			// the request model was already validated if this getter ever gets called, so this is safe
 			return _password;
-		}
-
-		String getJourneyId()
-		{
-			// the request model was already validated if this getter ever gets called, so this is safe
-			return _journeyId;
 		}
 	}
 }
