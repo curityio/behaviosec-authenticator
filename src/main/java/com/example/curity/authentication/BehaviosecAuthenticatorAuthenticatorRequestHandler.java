@@ -149,7 +149,7 @@ public final class BehaviosecAuthenticatorAuthenticatorRequestHandler implements
         BehavioCloudProperties behavioCloudProperties = BehavioCloudProperties
                 .builder()
                 .apiKey(_config.getApiKey())
-                .apiSecret(_config.getApiSecret())
+                .apiSecret(_config.getSecret())
                 .build();
 
         BehavioCloudApi behavioCloudApi = new BehavioCloudApi(behavioCloudProperties);

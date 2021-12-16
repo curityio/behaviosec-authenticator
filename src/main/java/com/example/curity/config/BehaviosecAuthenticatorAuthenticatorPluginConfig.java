@@ -17,6 +17,7 @@ package com.example.curity.config;
 
 import se.curity.identityserver.sdk.config.Configuration;
 import se.curity.identityserver.sdk.config.annotation.DefaultString;
+import se.curity.identityserver.sdk.config.annotation.Description;
 import se.curity.identityserver.sdk.service.CredentialManager;
 import se.curity.identityserver.sdk.service.UserPreferenceManager;
 
@@ -24,11 +25,14 @@ import se.curity.identityserver.sdk.service.UserPreferenceManager;
 public interface BehaviosecAuthenticatorAuthenticatorPluginConfig extends Configuration
 {
     @DefaultString("curity-demo-sid-")
+    @Description("A string to prefix the BehavioSec Cloud sessions")
     String getSessionIdPrefix();
 
+    @Description("The BehavioSec Cloud API Key")
     String getApiKey();
 
-    String getApiSecret();
+    @Description("The BehavioSec Cloud API Secret")
+    String getSecret();
 
     CredentialManager getCredentialManager();
 
