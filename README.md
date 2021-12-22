@@ -34,7 +34,11 @@ The plugin uses templates and localized messages for the front-end part of the a
 Note that the path will depend on the name of the Authenticator configured in the Curity Identity Server. The example path in this folder structure assumes the name of the Authenticator is `behaviosec`.
 
 The BehavioSec logo (`resources/behaviosec-logo.png`) should be deployed in :file:`${IDSVR_HOME}/usr/share/webroot/`
-### Update csp.vm
+
+### Versions prior to 6.7 of the Curity Identity Server
+
+The below instructions only applies for versions prior to 6.7 of the Curity Identity Server.
+
 In order to allow the BehavioSec JS SDK to execute, `csp.vm` needs to be updated. The change needed is defined in `get.vm` but `scp.vm` needs to be updated to read that variable. Locate `csp.vm` in `idsvr/usr/share/templates/core/fragments/` and make the changes.
 
 Add the following if/else statement after the ones that are already defined.
