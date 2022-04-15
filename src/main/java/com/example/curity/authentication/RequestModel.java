@@ -16,7 +16,7 @@
 package com.example.curity.authentication;
 
 import jakarta.validation.Valid;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import se.curity.identityserver.sdk.Nullable;
 import se.curity.identityserver.sdk.web.Request;
 
