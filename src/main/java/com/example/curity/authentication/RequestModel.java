@@ -15,11 +15,11 @@
  */
 package com.example.curity.authentication;
 
-import org.hibernate.validator.constraints.NotBlank;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import se.curity.identityserver.sdk.Nullable;
 import se.curity.identityserver.sdk.web.Request;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 public final class RequestModel
